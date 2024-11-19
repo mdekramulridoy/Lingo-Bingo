@@ -25,58 +25,73 @@ const Navbar = () => {
       <li>
         <NavLink to="/register">SignUp</NavLink>
       </li>
-      {
-        user && <>
-        <li>
-        <NavLink to="/profile">My profile</NavLink>
-      </li>
-      </>
-      }
+      {user && (
+        <>
+          <li>
+            <NavLink to="/profile">My profile</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
-    <div className="navbar bg-base-100">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+    <div>
+      <div>
+        <h1 className="text-center mt-3 text-green-500">
+          {user ? <span>Welcome {user.displayName}</span> : ""}
+        </h1>
+      </div>
+
+      <div className="navbar bg-base-100">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
+              {links}
+            </ul>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            {links}
-          </ul>
+          <Link className="flex items-center gap-2">
+            <img
+              className="w-12"
+              src="https://i.ibb.co.com/7V7Z6pq/0a252542-8326-4952-a36a-5814ad6ce888-033234.png"
+              alt=""
+            />
+            <h1 className="font-bold text-xl">Lingo Bingo</h1>
+          </Link>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
-      </div>
-      <div className="navbar-end">
-        {user ? (
-          <>
-            <span>{user.email}</span>
-            <a onClick={handleSignOut} className="btn">
-              SignOut
-            </a>
-          </>
-        ) : (
-          <Link to="/login">Login</Link>
-        )}
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">{links}</ul>
+        </div>
+        <div className="navbar-end">
+          {user ? (
+            <>
+              <span>{user.email}</span>
+              <a onClick={handleSignOut} className="btn">
+                SignOut
+              </a>
+            </>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
+        </div>
       </div>
     </div>
   );

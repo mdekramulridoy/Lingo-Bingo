@@ -10,6 +10,7 @@ import AuthProvider from "./providers/AuthProvider";
 import Profile from "./components/private/Profile";
 import PrivateRoute from "./routes/PrivateRoute";
 import Lessons from "./components/private/Lessons";
+import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "lessons",
         element: <PrivateRoute><Lessons></Lessons></PrivateRoute>,
+      },
+      {
+        path: "footer",
+        element: <Footer></Footer>,
       }
     ],
   },

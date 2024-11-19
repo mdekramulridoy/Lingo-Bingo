@@ -1,3 +1,4 @@
+// main.jsx
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
@@ -15,35 +16,45 @@ import Footer from "./components/Footer";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root></Root>,
+    element: <Root />,
     children: [
       {
         path: "/",
-        element: <Home></Home>,
+        element: <Home />,
       },
       {
         path: "login",
-        element: <Login></Login>,
+        element: <Login />,
       },
       {
         path: "register",
-        element: <Register></Register>,
+        element: <Register />,
       },
+      // Private routes (Protected Routes)
       {
         path: "profile",
-        element: <PrivateRoute><Profile></Profile></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
       },
       {
         path: "lessons",
-        element: <PrivateRoute><Lessons></Lessons></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <Lessons />
+          </PrivateRoute>
+        ),
       },
       {
         path: "footer",
-        element: <Footer></Footer>,
-      }
+        element: <Footer />,
+      },
     ],
   },
 ]);
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>

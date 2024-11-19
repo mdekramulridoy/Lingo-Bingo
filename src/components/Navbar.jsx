@@ -1,16 +1,20 @@
 import React, { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
+  const navigate = useNavigate(); // Use this hook to navigate programmatically
 
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
-        console.log("user sign out successfully");
+        console.log("User signed out successfully");
+        navigate("/login"); // Redirect to login after sign-out
       })
-      .catch((error) => console.log("ERROR", error.message));
+      .catch((error) => {
+        console.log("ERROR", error.message);
+      });
   };
 
   const links = (
@@ -31,21 +35,23 @@ const Navbar = () => {
       {user && (
         <>
           <li>
-            <NavLink to="/profile">My profile</NavLink>
+            <NavLink to="/profile">My Profile</NavLink>
           </li>
         </>
       )}
     </>
   );
-  
+
   return (
     <div>
+      {/* Welcome message */}
       <div>
         <h1 className="text-center mt-3 text-green-500">
           {user ? <span>Welcome {user.displayName}</span> : ""}
         </h1>
       </div>
 
+      {/* Navbar */}
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
@@ -81,9 +87,11 @@ const Navbar = () => {
             <h1 className="font-bold text-xl">Lingo Bingo</h1>
           </Link>
         </div>
+
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
+
         <div className="navbar-end">
           {user ? (
             <div className="flex items-center gap-2">

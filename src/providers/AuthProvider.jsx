@@ -5,71 +5,85 @@ import { auth } from '../firebase.init';
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const createUser = async (email, password, displayName, photoURL) => {
         setLoading(true);
         try {
-            // Create user with email and password
             const result = await createUserWithEmailAndPassword(auth, email, password);
             const createdUser = result.user;
-    
-            // Update profile with display name and photo URL
             await updateProfile(createdUser, {
                 displayName: displayName,
-                photoURL: photoURL
+                photoURL: photoURL,
             });
-    
-            // Set user state with the updated information
             setUser({ ...createdUser, displayName, photoURL });
+            setLoading(false);
+            return createdUser;
         } catch (error) {
             console.error("Error creating user:", error.message);
-            setLoading(false); // Ensure loading is stopped on error
+            setLoading(false);
+            throw error;
         }
-    }
-    
+    };
 
-    const signInUser = (email, password) => {
+    const signInUser = async (email, password) => {
         setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
-    }
+        try {
+            const result = await signInWithEmailAndPassword(auth, email, password);
+            setLoading(false);
+            return result;
+        } catch (error) {
+            setLoading(false);
+            throw error;
+        }
+    };
 
-    const signInWithGoogle = () => {
-        return signInWithPopup(auth, googleProvider);
-    }
-
-    const signOutUser = () => {
+    const signInWithGoogle = async () => {
         setLoading(true);
-        return signOut(auth);
-    }
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            setLoading(false);
+            return result;
+        } catch (error) {
+            setLoading(false);
+            throw error;
+        }
+    };
+
+    const signOutUser = async () => {
+        setLoading(true);
+        try {
+            await signOut(auth);
+            setUser(null);
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            throw error;
+        }
+    };
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
-            console.log('current user', currentUser);
             setUser(currentUser);
             setLoading(false);
         });
         return () => {
             unSubscribe();
-        }
+        };
     }, []);
 
-    const authInfo =  {
+    const authInfo = {
         user,
         loading,
         createUser,
         signInUser,
         signInWithGoogle,
-        signOutUser
-    }
+        signOutUser,
+    };
 
-    return (
-        <AuthContext.Provider value={authInfo}>
-            {children}
-        </AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

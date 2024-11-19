@@ -17,8 +17,7 @@ const Register = () => {
     const name = e.target.name.value;
     const password = e.target.password.value;
     const terms = e.target.terms.checked;
-
-    // const photo = e.target.photo.value;
+    const photo = e.target.photo.value;
 
     setError("");
     setSuccess(false);
@@ -46,13 +45,13 @@ const Register = () => {
       setError("Name must be at least 5 characters long.");
       return;
     }
-    // Inside handleRegister
-    createUser(email, password)
+
+    createUser(email, password, name, photo)
       .then((result) => {
         const createdUser = result.user;
-
         return updateProfile(createdUser, {
           displayName: name,
+          photoURL: photo,
         });
       })
       .then(() => {

@@ -4,7 +4,6 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
-  console.log(user);
 
   const handleSignOut = () => {
     signOutUser()
@@ -19,12 +18,16 @@ const Navbar = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-      <li>
-        <NavLink to="/login">Login</NavLink>
-      </li>
-      <li>
-        <NavLink to="/register">SignUp</NavLink>
-      </li>
+      {!user && (
+        <>
+          <li>
+            <NavLink to="/login">Login</NavLink>
+          </li>
+          <li>
+            <NavLink to="/register">SignUp</NavLink>
+          </li>
+        </>
+      )}
       {user && (
         <>
           <li>
@@ -34,6 +37,7 @@ const Navbar = () => {
       )}
     </>
   );
+  
   return (
     <div>
       <div>
@@ -68,7 +72,7 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <Link className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <img
               className="w-12"
               src="https://i.ibb.co.com/7V7Z6pq/0a252542-8326-4952-a36a-5814ad6ce888-033234.png"
@@ -82,14 +86,23 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {user ? (
-            <>
-              <span>{user.email}</span>
-              <a onClick={handleSignOut} className="btn">
-                SignOut
-              </a>
-            </>
+            <div className="flex items-center gap-2">
+              <img
+                src={
+                  user.photoURL ||
+                  "https://i.ibb.co.com/ph6PK0H/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg"
+                }
+                alt="User Avatar"
+                className="w-8 h-8 rounded-full"
+              />
+              <button onClick={handleSignOut} className="btn">
+                Sign Out
+              </button>
+            </div>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="btn">
+              Login
+            </Link>
           )}
         </div>
       </div>

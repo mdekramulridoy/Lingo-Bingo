@@ -13,6 +13,7 @@ import Lessons from "./components/private/Lessons";
 import Footer from "./components/Footer";
 import StartLearning from "./components/private/StartLearning";
 import Tutorials from "./components/private/Tutorials";
+import About from "./components/About";
 
 
 const router = createBrowserRouter([
@@ -31,6 +32,12 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+      },
+
+
+      {
+        path: "about",
+        element: <About></About>,
       },
 
       {

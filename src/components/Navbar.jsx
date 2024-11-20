@@ -24,14 +24,10 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
+
       <li>
-        <NavLink to="/start-learning" className="px-2 py-1">
-          Start-learning
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/tutorials" className="px-2 py-1">
-          Tutorials
+        <NavLink to="/about" className="px-2 py-1">
+          About Us
         </NavLink>
       </li>
       {!user && (
@@ -49,9 +45,17 @@ const Navbar = () => {
         </>
       )}
       {user && (
-        <li>
+        <li className="flex flex-row gap-2">
           <NavLink to="/profile" className="px-2 py-1">
             My Profile
+          </NavLink>
+
+          <NavLink to="/start-learning" className="px-2 py-1">
+            Start-learning
+          </NavLink>
+
+          <NavLink to="/tutorials" className="px-2 py-1">
+            Tutorials
           </NavLink>
         </li>
       )}

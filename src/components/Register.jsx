@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { updateProfile } from "firebase/auth";
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -18,20 +18,20 @@ const Register = () => {
     const password = e.target.password.value;
     const terms = e.target.terms.checked;
     const photo = e.target.photo.value;
-
+  
     setError("");
     setSuccess(false);
-
+  
     if (!terms) {
       setError("Please accept our terms & conditions.");
       return;
     }
-
+  
     if (password.length < 6) {
       setError("Password should be 6 characters or longer.");
       return;
     }
-
+  
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     if (!passwordRegex.test(password)) {
@@ -40,20 +40,13 @@ const Register = () => {
       );
       return;
     }
-
+  
     if (name.length < 5) {
       setError("Name must be at least 5 characters long.");
       return;
     }
-
+  
     createUser(email, password, name, photo)
-      .then((result) => {
-        const createdUser = result.user;
-        return updateProfile(createdUser, {
-          displayName: name,
-          photoURL: photo,
-        });
-      })
       .then(() => {
         e.target.reset();
         setSuccess(true);
@@ -63,6 +56,7 @@ const Register = () => {
         setError(err.message);
       });
   };
+  
 
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -139,10 +133,10 @@ const Register = () => {
               <button className="btn btn-primary">Sign Up</button>
             </div>
           </form>
-          {error && <p className="text-red-600">{error}</p>}
+          {error && <p className="text-red-600 text-center">{error}</p>}
           {success && <p className="text-green-600">Sign-up Successful.</p>}
-          <p className="ml-4 mb-4 mr-4">
-            Already signed up? Please <Link to="/login">Login</Link>
+          <p className="text-center text-lg mb-4 my-1">
+            Already signed up? Please <Link className="font-bold text-red-500" to="/login">Login</Link>
           </p>
         </div>
       </div>

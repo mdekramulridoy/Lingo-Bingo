@@ -4,13 +4,13 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
-  const navigate = useNavigate(); // Use this hook to navigate programmatically
+  const navigate = useNavigate(); 
 
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
         console.log("User signed out successfully");
-        navigate("/login"); // Redirect to login after sign-out
+        navigate("/login");
       })
       .catch((error) => {
         console.log("ERROR", error.message);
@@ -44,14 +44,11 @@ const Navbar = () => {
 
   return (
     <div>
-      {/* Welcome message */}
       <div>
         <h1 className="text-center mt-3 text-green-500">
           {user ? <span>Welcome {user.displayName}</span> : ""}
         </h1>
       </div>
-
-      {/* Navbar */}
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">

@@ -1,4 +1,3 @@
-// main.jsx
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
@@ -30,7 +29,7 @@ const router = createBrowserRouter([
         path: "register",
         element: <Register />,
       },
-      // Private routes (Protected Routes)
+
       {
         path: "profile",
         element: (

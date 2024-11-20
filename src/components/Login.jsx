@@ -80,7 +80,7 @@ const Login = () => {
             </Link>
           </p>
 
-          <div className="m-4 flex justify-center">
+          <div className="mb-4 flex justify-center">
             <button
               onClick={handleGoogleSignIn}
               className="btn text-green-500 font-bold text-lg flex gap-3  border-2"

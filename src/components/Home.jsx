@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import CountUp from "react-countup";
 import { AuthContext } from "../providers/AuthProvider";
 
+
 const Home = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const images = [
+    "https://i.ibb.co.com/dWMY07f/learn-another-language-with-US.jpg",
     "https://i.ibb.co/hBfG1yG/6ca4d3df-bbc9-4ebc-93db-379c637bc20b.jpg",
-    "https://i.ibb.co/8Yq1Xq8/2468fd75-c094-4e1d-b3ed-0fefec22b17b.jpg",
-    "https://i.ibb.co/qM06y3q/00f45303-4ee4-466b-bae3-747b1fd673c3.jpg",
+    "https://i.ibb.co.com/GTBvPF5/learn-another-language-with-US-1.jpg",
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

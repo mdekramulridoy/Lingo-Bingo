@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import "animate.css";  // Import Animate.css
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
@@ -65,7 +66,7 @@ const Navbar = () => {
   return (
     <div>
       <div>
-        <h1 className="text-center mt-3 lg:text-xl md:text-lg text-sm font-bold text-[#08ABE9]">
+        <h1 className=" animate__animated animate__fadeIn animate__infinite animate__delay-1s text-center mt-3 lg:text-xl md:text-lg text-sm font-bold text-[#08ABE9]">
           {user ? <span>Welcome {user.displayName || "User"}</span> : ""}
         </h1>
       </div>

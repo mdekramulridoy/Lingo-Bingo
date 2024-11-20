@@ -11,6 +11,9 @@ import Profile from "./components/private/Profile";
 import PrivateRoute from "./routes/PrivateRoute";
 import Lessons from "./components/private/Lessons";
 import Footer from "./components/Footer";
+import StartLearning from "./components/private/StartLearning";
+import Tutorials from "./components/private/Tutorials";
+
 
 const router = createBrowserRouter([
   {
@@ -46,6 +49,23 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "start-learning",
+        element: (
+          <PrivateRoute>
+            <StartLearning></StartLearning>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "tutorials",
+        element: (
+          <PrivateRoute>
+            <Tutorials></Tutorials>
+          </PrivateRoute>
+        ),
+      },
+
       {
         path: "footer",
         element: <Footer />,

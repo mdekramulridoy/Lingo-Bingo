@@ -4,7 +4,7 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     signOutUser()
@@ -20,24 +20,40 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/" className="px-2 py-1">
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/start-learning" className="px-2 py-1">
+          Start-learning
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/tutorials" className="px-2 py-1">
+          Tutorials
+        </NavLink>
       </li>
       {!user && (
         <>
           <li>
-            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/login" className="px-2 py-1">
+              Login
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/register">SignUp</NavLink>
+            <NavLink to="/register" className="px-2 py-1">
+              SignUp
+            </NavLink>
           </li>
         </>
       )}
       {user && (
-        <>
-          <li>
-            <NavLink to="/profile">My Profile</NavLink>
-          </li>
-        </>
+        <li>
+          <NavLink to="/profile" className="px-2 py-1">
+            My Profile
+          </NavLink>
+        </li>
       )}
     </>
   );
@@ -46,13 +62,17 @@ const Navbar = () => {
     <div>
       <div>
         <h1 className="text-center mt-3 text-green-500">
-          {user ? <span>Welcome {user.displayName}</span> : ""}
+          {user ? <span>Welcome {user.displayName || "User"}</span> : ""}
         </h1>
       </div>
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <button
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost lg:hidden md:hidden"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -67,28 +87,26 @@ const Navbar = () => {
                   d="M4 6h16M4 12h8m-8 6h16"
                 />
               </svg>
-            </div>
+            </button>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-compact dropdown-content bg-base-100 rounded-box z-[1] mt-3 p-2 shadow flex flex-col gap-2"
             >
               {links}
             </ul>
           </div>
           <Link to="/" className="flex items-center gap-2">
             <img
-              className="w-12"
+              className="lg:w-12 md:w-10 w-8"
               src="https://i.ibb.co.com/7V7Z6pq/0a252542-8326-4952-a36a-5814ad6ce888-033234.png"
-              alt=""
+              alt="Lingo Bingo Logo"
             />
-            <h1 className="font-bold text-xl">Lingo Bingo</h1>
+            <h1 className="font-bold lg:text-xl">Lingo Bingo</h1>
           </Link>
         </div>
-
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
+        <div className="navbar-center hidden md:flex  lg:flex">
+          <ul className="menu gap-2 menu-horizontal px-1">{links}</ul>
         </div>
-
         <div className="navbar-end">
           {user ? (
             <div className="flex items-center gap-2">
@@ -100,7 +118,10 @@ const Navbar = () => {
                 alt="User Avatar"
                 className="w-8 h-8 rounded-full"
               />
-              <button onClick={handleSignOut} className="btn">
+              <button
+                onClick={handleSignOut}
+                className="bg-[#08ABE9] font-bold text-white py-2 px-4 rounded-xl"
+              >
                 Sign Out
               </button>
             </div>

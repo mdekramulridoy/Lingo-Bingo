@@ -50,7 +50,7 @@ const Register = () => {
       .then(() => {
         e.target.reset();
         setSuccess(true);
-        navigate("/");
+        navigate("/start-learning");
       })
       .catch((err) => {
         setError(err.message);

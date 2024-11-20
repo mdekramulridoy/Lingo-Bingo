@@ -7,6 +7,9 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase.init";
 
 const Login = () => {
+  useEffect(() => {
+    document.title = "Login";
+  }, []);
   const navigate = useNavigate();
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const [error, setError] = useState("");

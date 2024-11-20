@@ -18,7 +18,7 @@ const Navbar = () => {
         },
       });
     }
-  }, [user]); // Runs when `user` changes
+  }, [user]);
 
   const handleSignOut = () => {
     signOutUser()

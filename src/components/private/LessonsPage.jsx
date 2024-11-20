@@ -1,48 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-const Lessons = () => {
+const LessonsPage = () => {
   const { lesson_no } = useParams();
-  const [lessonDetails, setLessonDetails] = useState(null);
+  const lessonId = parseInt(lesson_no);
+  const [lessonWords, setLessonWords] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchLessonData = async () => {
+    const fetchVocabulary = async () => {
       try {
         const response = await fetch("/vocabulary.json");
         if (!response.ok) {
-          throw new Error("Failed to fetch data.");
+          throw new Error("Failed to fetch vocabulary data.");
         }
         const data = await response.json();
         const filteredWords = data.filter(
-          (word) => word.lesson_no === parseInt(lesson_no)
+          (word) => word.lesson_no === lessonId
         );
-        setLessonDetails(filteredWords);
+        setLessonWords(filteredWords);
       } catch (error) {
-        console.error("Error fetching lesson data:", error);
-        setLessonDetails([]);
+        console.error("Error fetching vocabulary data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchLessonData();
-  }, [lesson_no]);
+    fetchVocabulary();
+  }, [lessonId]);
 
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold text-center">Lesson {lesson_no}</h1>
       <p className="text-center mt-4 text-gray-600">
-        Learn more about the vocabulary and phrases in Lesson {lesson_no}.
+        Explore and learn vocabulary from Lesson {lesson_no}.
       </p>
 
       {loading ? (
-        <p className="text-center mt-6 text-gray-600">Loading lesson details...</p>
+        <p className="text-center mt-6 text-gray-600">Loading vocabulary...</p>
       ) : (
         <div className="mt-6">
-          {lessonDetails && lessonDetails.length > 0 ? (
+          {lessonWords.length > 0 ? (
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {lessonDetails.map((word) => (
+              {lessonWords.map((word) => (
                 <li
                   key={word.id}
                   className="border p-4 rounded-lg shadow hover:shadow-lg transition"
@@ -59,7 +59,7 @@ const Lessons = () => {
             </ul>
           ) : (
             <p className="text-center text-gray-600">
-              No details available for this lesson.
+              No vocabulary found for this lesson.
             </p>
           )}
         </div>
@@ -77,4 +77,4 @@ const Lessons = () => {
   );
 };
 
-export default Lessons;
+export default LessonsPage;

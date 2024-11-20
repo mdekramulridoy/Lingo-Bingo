@@ -5,6 +5,9 @@ import { AuthContext } from "../providers/AuthProvider";
 
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "Home";
+  }, []);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const images = [
@@ -70,7 +73,6 @@ const Home = () => {
         </p>
       </div>
 
-      {/* Achievement Section Start */}
       <div className="flex flex-col items-center bg-gray-100 py-8 px-4 mt-8 w-full">
         <h2 className="text-2xl font-bold mb-4 text-[#08ABE9]">
           Our Achievements

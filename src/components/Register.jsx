@@ -5,6 +5,9 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 const Register = () => {
+  useEffect(() => {
+    document.title = "Registration";
+  }, []);
   const navigate = useNavigate();
   const { createUser } = useContext(AuthContext);
   const [success, setSuccess] = useState(false);

@@ -15,7 +15,8 @@ import StartLearning from "./components/private/StartLearning";
 import Tutorials from "./components/private/Tutorials";
 import About from "./components/About";
 import { Toaster } from "react-hot-toast";
-
+import LessonsPage from "./components/private/LessonsPage";
+import NotFound from "./components/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -34,13 +35,10 @@ const router = createBrowserRouter([
         path: "register",
         element: <Register />,
       },
-
-
       {
         path: "about",
-        element: <About></About>,
+        element: <About />,
       },
-
       {
         path: "profile",
         element: (
@@ -50,7 +48,23 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "start-learning",
+        element: (
+          <PrivateRoute>
+            <StartLearning />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "lessons",
+        element: (
+          <PrivateRoute>
+            <LessonsPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "lessons/:lesson_no",
         element: (
           <PrivateRoute>
             <Lessons />
@@ -58,25 +72,20 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "start-learning",
-        element: (
-          <PrivateRoute>
-            <StartLearning></StartLearning>
-          </PrivateRoute>
-        ),
-      },
-      {
         path: "tutorials",
         element: (
           <PrivateRoute>
-            <Tutorials></Tutorials>
+            <Tutorials />
           </PrivateRoute>
         ),
       },
-
       {
         path: "footer",
         element: <Footer />,
+      },
+      {
+        path: "*",
+        element: <NotFound></NotFound>, 
       },
     ],
   },
@@ -85,7 +94,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <Toaster></Toaster>
+      <Toaster />
       <RouterProvider router={router} />
     </AuthProvider>
   </StrictMode>

@@ -1,6 +1,14 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
-import React, { createContext, useEffect, useState } from 'react';
-import { auth } from '../firebase.init';
+import {
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    signOut,
+    updateProfile,
+} from "firebase/auth";
+import React, { createContext, useEffect, useState } from "react";
+import { auth } from "../firebase.init";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
@@ -19,12 +27,12 @@ const AuthProvider = ({ children }) => {
                 photoURL: photoURL,
             });
             setUser({ ...createdUser, displayName, photoURL });
-            setLoading(false);
             return createdUser;
         } catch (error) {
             console.error("Error creating user:", error.message);
-            setLoading(false);
             throw error;
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -32,11 +40,12 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         try {
             const result = await signInWithEmailAndPassword(auth, email, password);
-            setLoading(false);
             return result;
         } catch (error) {
-            setLoading(false);
+            console.error("Error signing in user:", error.message);
             throw error;
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -44,11 +53,12 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         try {
             const result = await signInWithPopup(auth, googleProvider);
-            setLoading(false);
             return result;
         } catch (error) {
-            setLoading(false);
+            console.error("Error signing in with Google:", error.message);
             throw error;
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -57,21 +67,20 @@ const AuthProvider = ({ children }) => {
         try {
             await signOut(auth);
             setUser(null);
-            setLoading(false);
         } catch (error) {
-            setLoading(false);
+            console.error("Error signing out user:", error.message);
             throw error;
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
         });
-        return () => {
-            unSubscribe();
-        };
+        return () => unsubscribe();
     }, []);
 
     const authInfo = {

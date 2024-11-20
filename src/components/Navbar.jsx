@@ -65,7 +65,7 @@ const Navbar = () => {
   return (
     <div>
       <div>
-        <h1 className="text-center mt-3 text-green-500">
+        <h1 className="text-center mt-3 lg:text-xl md:text-lg text-sm font-bold text-[#08ABE9]">
           {user ? <span>Welcome {user.displayName || "User"}</span> : ""}
         </h1>
       </div>
@@ -79,7 +79,7 @@ const Navbar = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-5 text-[#08ABE9] w-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -105,7 +105,7 @@ const Navbar = () => {
               src="https://i.ibb.co.com/7V7Z6pq/0a252542-8326-4952-a36a-5814ad6ce888-033234.png"
               alt="Lingo Bingo Logo"
             />
-            <h1 className="font-bold lg:text-xl">Lingo Bingo</h1>
+            <h1 className="font-bold lg:text-xl text-[#08ABE9] text-sm ">Lingo Bingo</h1>
           </Link>
         </div>
         <div className="navbar-center hidden md:flex  lg:flex">
@@ -124,7 +124,7 @@ const Navbar = () => {
               />
               <button
                 onClick={handleSignOut}
-                className="bg-[#08ABE9] font-bold text-white py-2 px-4 rounded-xl"
+                className="bg-[#08ABE9] font-bold text-white lg:py-2 lg:px-4 md:py-2 md:px-3 py-1 px-2 lg:text-xl text-sm rounded-xl"
               >
                 Sign Out
               </button>

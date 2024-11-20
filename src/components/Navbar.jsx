@@ -1,11 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
-import "animate.css"; 
+import { toast } from "react-hot-toast";
+import "animate.css";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      toast.success(`Welcome, ${user.displayName || "User"}!`, {
+        duration: 4000, 
+        style: {
+          background: "#08ABE9",
+          color: "#fff",
+        },
+      });
+    }
+  }, [user]); // Runs when `user` changes
 
   const handleSignOut = () => {
     signOutUser()
@@ -25,7 +38,6 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-
       <li>
         <NavLink to="/about" className="px-2 py-1">
           About Us
@@ -50,11 +62,9 @@ const Navbar = () => {
           <NavLink to="/profile" className="px-2 py-1">
             My Profile
           </NavLink>
-
           <NavLink to="/start-learning" className="px-2 py-1">
             Start-learning
           </NavLink>
-
           <NavLink to="/tutorials" className="px-2 py-1">
             Tutorials
           </NavLink>
@@ -65,11 +75,6 @@ const Navbar = () => {
 
   return (
     <div>
-      <div>
-        <h1 className=" animate__animated animate__fadeIn animate__infinite animate__delay-1s text-center mt-3 lg:text-xl md:text-lg text-sm font-bold text-[#08ABE9]">
-          {user ? <span>Welcome {user.displayName || "User"}</span> : ""}
-        </h1>
-      </div>
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
@@ -106,10 +111,12 @@ const Navbar = () => {
               src="https://i.ibb.co.com/7V7Z6pq/0a252542-8326-4952-a36a-5814ad6ce888-033234.png"
               alt="Lingo Bingo Logo"
             />
-            <h1 className="font-bold lg:text-xl text-[#08ABE9] text-sm ">Lingo Bingo</h1>
+            <h1 className="font-bold lg:text-xl text-[#08ABE9] text-sm ">
+              Lingo Bingo
+            </h1>
           </Link>
         </div>
-        <div className="navbar-center hidden md:flex  lg:flex">
+        <div className="navbar-center hidden md:flex lg:flex">
           <ul className="menu gap-2 menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
@@ -118,7 +125,7 @@ const Navbar = () => {
               <img
                 src={
                   user.photoURL ||
-                  "https://i.ibb.co.com/ph6PK0H/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg"
+                  "https://i.ibb.co/ph6PK0H/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg"
                 }
                 alt="User Avatar"
                 className="w-8 h-8 rounded-full"

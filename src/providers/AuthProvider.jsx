@@ -54,7 +54,7 @@ const AuthProvider = ({ children }) => {
         try {
           const result = await signInWithPopup(auth, googleProvider);
           const user = result.user;
-          setUser(user); // Ensure to set the user including the photoURL
+          setUser(user);
           return result;
         } catch (error) {
           console.error("Error signing in with Google:", error.message);

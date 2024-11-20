@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import StartLearning from "./components/private/StartLearning";
 import Tutorials from "./components/private/Tutorials";
 import About from "./components/About";
+import { Toaster } from "react-hot-toast";
 
 
 const router = createBrowserRouter([
@@ -84,6 +85,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
+      <Toaster></Toaster>
       <RouterProvider router={router} />
     </AuthProvider>
   </StrictMode>

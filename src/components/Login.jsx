@@ -1,12 +1,34 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../firebase.init";
 
 const Login = () => {
   const navigate = useNavigate();
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const emailRef = useRef();
+
+  const handleForgetPassword = () => {
+    const email = emailRef.current.value;
+
+    if (!email) {
+      console.log("Please provide a valid email address");
+    } else {
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          alert("Reset email sent");
+        })
+        .catch((error) => {
+          console.log("Error sending reset email: ", error.message);
+        });
+    }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -48,24 +70,41 @@ const Login = () => {
               <input
                 name="email"
                 type="email"
+                ref={emailRef}
                 placeholder="email"
                 className="input input-bordered"
                 required
               />
             </div>
-            <div className="form-control">
+            <div className="form-control relative">
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
               <input
                 name="password"
-                type="password"
-                placeholder="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
                 className="input input-bordered"
                 required
               />
+              <label className="label">
+                <Link
+                  onClick={handleForgetPassword}
+                  href="#"
+                  className="label-text-alt link link-hover"
+                >
+                  Forgot password?
+                </Link>
+              </label>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="btn btn-xs absolute right-3 top-12"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
-            <div className="form-control mt-6">
+            <div className="form-control mt-3">
               <button className="btn btn-primary">Login</button>
             </div>
           </form>

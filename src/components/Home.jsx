@@ -30,7 +30,7 @@ const Home = () => {
     if (user) {
       navigate("/start-learning");
     } else {
-      navigate("/login");
+      navigate("/register");
     }
   };
 

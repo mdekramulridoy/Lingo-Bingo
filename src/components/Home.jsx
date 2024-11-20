@@ -77,28 +77,28 @@ const Home = () => {
         <div className="flex flex-wrap justify-center gap-6">
           <div className="flex flex-col items-center bg-white shadow-lg rounded-lg lg:p-6 lg:w-60 py-3 px-4 w-30">
             <h3 className="text-2xl lg:text-3xl font-bold text-[#08ABE9]">
-              <CountUp end={5000} duration={3} separator="," />
+              <CountUp end={5000} duration={5} separator="," />
             </h3>
             <p className="text-gray-700 mt-2 text-center">Satisfied Users</p>
           </div>
 
           <div className="flex flex-col items-center bg-white shadow-lg rounded-lg lg:p-6 lg:w-60 py-3 px-4 w-30">
             <h3 className="text-2xl lg:text-3xl font-bold text-[#08ABE9]">
-              <CountUp end={120} duration={3} />
+              <CountUp end={120} duration={5} />
             </h3>
             <p className="text-gray-700 mt-2 text-center">Lessons Created</p>
           </div>
 
           <div className="flex flex-col items-center bg-white shadow-lg rounded-lg lg:p-6 lg:w-60 py-3 px-4 w-30">
             <h3 className="text-2xl lg:text-3xl font-bold text-[#08ABE9]">
-              <CountUp end={15000} duration={3} separator="," />
+              <CountUp end={15000} duration={5} separator="," />
             </h3>
             <p className="text-gray-700 mt-2 text-center">Vocabularies Added</p>
           </div>
 
           <div className="flex py-3 px-4 w-30 flex-col items-center bg-white shadow-lg rounded-lg  lg:p-6 lg:w-60 ">
             <h3 className="text-2xl lg:text-3xl font-bold text-[#08ABE9]">
-              <CountUp end={50} duration={3} />+
+              <CountUp end={50} duration={5} />+
             </h3>
             <p className="text-gray-700 mt-2"> Tutorials</p>
           </div>
@@ -115,8 +115,8 @@ const Home = () => {
               "Lingo Bingo has transformed the way I learn languages. It's fun
               and interactive, making it easier to retain vocabulary!"
             </p>
-            <h4 className="font-bold text-right mt-4 text-green-500">
-              - Ekramul Hoque
+            <h4 className="font-bold text-right mt-4 text-green-500 italic">
+              - Md. Ekramul Hoque
             </h4>
           </div>
           <div className="bg-white shadow-lg rounded-lg p-6 max-w-sm">
@@ -124,7 +124,7 @@ const Home = () => {
               "The gamified experience keeps me engaged and coming back for
               more. Highly recommend it!"
             </p>
-            <h4 className="font-bold text-right mt-4 text-green-500">- Ridoy</h4>
+            <h4 className="font-bold text-right mt-4 text-green-500 italic">- Ridoy</h4>
           </div>
         </div>
       </div>

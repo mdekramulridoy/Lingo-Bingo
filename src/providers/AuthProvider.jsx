@@ -52,15 +52,18 @@ const AuthProvider = ({ children }) => {
     const signInWithGoogle = async () => {
         setLoading(true);
         try {
-            const result = await signInWithPopup(auth, googleProvider);
-            return result;
+          const result = await signInWithPopup(auth, googleProvider);
+          const user = result.user;
+          setUser(user); // Ensure to set the user including the photoURL
+          return result;
         } catch (error) {
-            console.error("Error signing in with Google:", error.message);
-            throw error;
+          console.error("Error signing in with Google:", error.message);
+          throw error;
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    };
+      };
+      
 
     const signOutUser = async () => {
         setLoading(true);

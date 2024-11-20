@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
-import "animate.css";  // Import Animate.css
+import "animate.css"; 
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);

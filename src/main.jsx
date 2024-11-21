@@ -17,6 +17,7 @@ import About from "./components/About";
 import { Toaster } from "react-hot-toast";
 import LessonsPage from "./components/private/LessonsPage";
 import NotFound from "./components/NotFound";
+import UpdateProfile from "./components/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,14 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <NotFound></NotFound>, 
+      },
+      {
+        path: "update-profile",
+        element: (
+          <PrivateRoute>
+            <UpdateProfile></UpdateProfile>
+          </PrivateRoute>
+        ),
       },
     ],
   },

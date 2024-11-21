@@ -5,7 +5,7 @@ const Lessons = () => {
   const { lesson_no } = useParams();
   const [lessonDetails, setLessonDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [voices, setVoices] = useState([]); 
   useEffect(() => {
     const fetchLessonData = async () => {
       try {
@@ -26,8 +26,38 @@ const Lessons = () => {
       }
     };
 
+    const loadVoices = () => {
+      const allVoices = window.speechSynthesis.getVoices();
+      setVoices(allVoices);
+    };
+
+    loadVoices();
+    window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
     fetchLessonData();
+
+    return () => {
+      window.speechSynthesis.removeEventListener("voiceschanged", loadVoices);
+    };
   }, [lesson_no]);
+
+
+  const pronounceWord = (word) => {
+    if (voices.length === 0) {
+      alert("Voices are still loading, please try again in a moment.");
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "ja-JP"; 
+    const japaneseVoice = voices.find((voice) => voice.lang.startsWith("ja"));
+    if (japaneseVoice) {
+      utterance.voice = japaneseVoice;
+    } else {
+      console.log("Japanese voice not found.");
+    }
+
+    window.speechSynthesis.speak(utterance);
+  };
 
   return (
     <div className="p-6">
@@ -46,6 +76,7 @@ const Lessons = () => {
                 <li
                   key={word.id}
                   className="border p-4 rounded-lg shadow hover:shadow-lg transition"
+                  onClick={() => pronounceWord(word.word)} 
                 >
                   <h3 className="text-lg font-bold">{word.word}</h3>
                   <p className="text-gray-500 italic">{word.pronunciation}</p>

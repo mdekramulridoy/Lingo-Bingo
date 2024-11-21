@@ -15,9 +15,10 @@ const lessons = [
 ];
 
 const StartLearning = () => {
-    useEffect(() => {
-        document.title = "Start-learning";
-      }, []);
+  useEffect(() => {
+    document.title = "Start Learning";
+  }, []);
+
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold text-center">Start Learning</h1>
@@ -39,7 +40,7 @@ const StartLearning = () => {
           to="/tutorials"
           className="px-4 py-2 bg-[#08ABE9] text-white font-bold rounded-lg shadow hover:bg-green-600 transition"
         >
-          View more
+          View More
         </Link>
       </div>
     </div>

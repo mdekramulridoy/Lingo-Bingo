@@ -3,11 +3,13 @@ import { useParams, Link } from "react-router-dom";
 
 const LessonsPage = () => {
   const { lesson_no } = useParams();
-  const lessonId = parseInt(lesson_no);
+  const lessonId = parseInt(lesson_no, 10);
   const [lessonWords, setLessonWords] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [voices, setVoices] = useState([]);
+  
   useEffect(() => {
+
     const fetchVocabulary = async () => {
       try {
         const response = await fetch("/vocabulary.json");
@@ -15,9 +17,7 @@ const LessonsPage = () => {
           throw new Error("Failed to fetch vocabulary data.");
         }
         const data = await response.json();
-        const filteredWords = data.filter(
-          (word) => word.lesson_no === lessonId
-        );
+        const filteredWords = data.filter((word) => word.lesson_no === lessonId);
         setLessonWords(filteredWords);
       } catch (error) {
         console.error("Error fetching vocabulary data:", error);
@@ -26,45 +26,64 @@ const LessonsPage = () => {
       }
     };
 
+  
+    const loadVoices = () => {
+      const allVoices = window.speechSynthesis.getVoices();
+      setVoices(allVoices); 
+    };
+
+ 
+    loadVoices();
+   
+    window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
+
+
     fetchVocabulary();
+
+    return () => {
+ 
+      window.speechSynthesis.removeEventListener("voiceschanged", loadVoices);
+    };
   }, [lessonId]);
+
+  const pronounceWord = (word) => {
+    if (voices.length === 0) {
+      alert("Voices are still loading, please try again in a moment.");
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "ja-JP"; 
+
+    const japaneseVoice = voices.find((voice) => voice.lang.startsWith("ja"));
+    if (japaneseVoice) {
+      utterance.voice = japaneseVoice;
+    } else {
+      console.log("Japanese voice not found.");
+    }
+
+    window.speechSynthesis.speak(utterance);
+  };
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold text-center">Lesson {lesson_no}</h1>
-      <p className="text-center mt-4 text-gray-600">
-        Explore and learn vocabulary from Lesson {lesson_no}.
-      </p>
-
+      <h1 className="text-3xl font-bold text-center mb-6">Lesson {lesson_no}</h1>
       {loading ? (
-        <p className="text-center mt-6 text-gray-600">Loading vocabulary...</p>
+        <p className="text-center text-gray-600">Loading vocabulary...</p>
       ) : (
-        <div className="mt-6">
-          {lessonWords.length > 0 ? (
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {lessonWords.map((word) => (
-                <li
-                  key={word.id}
-                  className="border p-4 rounded-lg shadow hover:shadow-lg transition"
-                >
-                  <h3 className="text-lg font-bold">{word.word}</h3>
-                  <p className="text-gray-500 italic">{word.pronunciation}</p>
-                  <p className="text-gray-800">Meaning: {word.meaning}</p>
-                  <p className="text-gray-600">Part of Speech: {word.part_of_speech}</p>
-                  <p className="text-gray-600 mt-2">
-                    <strong>Example:</strong> {word.example}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-center text-gray-600">
-              No vocabulary found for this lesson.
-            </p>
-          )}
+        <div className="flex flex-wrap justify-center gap-6">
+          {lessonWords.map((word) => (
+            <div
+              key={word.id}
+              className="card p-6 border rounded-lg shadow hover:shadow-lg cursor-pointer transition"
+              onClick={() => pronounceWord(word.word)} 
+            >
+              <h2 className="text-xl font-semibold">{word.word}</h2>
+              <p>{word.meaning}</p>
+            </div>
+          ))}
         </div>
       )}
-
       <div className="text-center mt-6">
         <Link
           to="/start-learning"

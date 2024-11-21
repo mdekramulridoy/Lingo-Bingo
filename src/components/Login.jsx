@@ -5,11 +5,13 @@ import { FaGoogle } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../firebase.init";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   useEffect(() => {
     document.title = "Login";
   }, []);
+
   const navigate = useNavigate();
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const [error, setError] = useState("");
@@ -42,9 +44,25 @@ const Login = () => {
       await signInUser(email, password);
       e.target.reset();
       setError("");
+
+      toast.success("Login successful! Welcome back.", {
+        duration: 4000,
+        style: {
+          background: "#08ABE9",
+          color: "#fff",
+        },
+      });
+
       navigate("/start-learning");
     } catch (error) {
-      setError("Login failed: " + error.message);
+      setError(error.message);
+      toast.error(`Login failed: ${error.message}`, {
+        duration: 4000,
+        style: {
+          background: "#E74C3C",
+          color: "#fff",
+        },
+      });
     }
   };
 
@@ -52,9 +70,25 @@ const Login = () => {
     try {
       await signInWithGoogle();
       setError("");
+
+      toast.success("Login successful! Welcome back.", {
+        duration: 4000,
+        style: {
+          background: "#08ABE9",
+          color: "#fff",
+        },
+      });
+
       navigate("/start-learning");
     } catch (error) {
-      setError("Google Sign-In failed: " + error.message);
+      setError(error.message);
+      toast.error(`Google Sign-In failed: ${error.message}`, {
+        duration: 4000,
+        style: {
+          background: "#E74C3C",
+          color: "#fff",
+        },
+      });
     }
   };
 

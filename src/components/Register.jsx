@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
   useEffect(() => {
     document.title = "Registration";
   }, []);
+
   const navigate = useNavigate();
   const { createUser } = useContext(AuthContext);
   const [success, setSuccess] = useState(false);
@@ -26,11 +28,29 @@ const Register = () => {
 
     if (!terms) {
       setError("Please accept our terms & conditions.");
+      toast.error("You must accept the terms & conditions to proceed.");
       return;
     }
 
     if (password.length < 6) {
       setError("Password should be 6 characters or longer.");
+      toast.error("Password should be at least 6 characters long.");
+      return;
+    }
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    if (!passwordRegex.test(password)) {
+      setError(
+        "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character."
+      );
+      toast.error("Password must meet the required criteria.");
+      return;
+    }
+
+    if (name.length < 5) {
+      setError("Name must be at least 5 characters long.");
+      toast.error("Name must be at least 5 characters long.");
       return;
     }
 
@@ -38,10 +58,24 @@ const Register = () => {
       .then(() => {
         e.target.reset();
         setSuccess(true);
+        toast.success(`Welcome, ${name}!`, {
+          duration: 4000,
+          style: {
+            background: "#08ABE9",
+            color: "#fff",
+          },
+        });
         navigate("/start-learning");
       })
       .catch((err) => {
         setError(err.message);
+        toast.error(`Registration failed: ${err.message}`, {
+          duration: 4000,
+          style: {
+            background: "#E74C3C",
+            color: "#fff",
+          },
+        });
       });
   };
 
@@ -57,13 +91,25 @@ const Register = () => {
               <label className="label">
                 <span className="label-text">Your Name</span>
               </label>
-              <input name="name" type="text" placeholder="Your Name" className="input input-bordered" required />
+              <input
+                name="name"
+                type="text"
+                placeholder="Your Name"
+                className="input input-bordered"
+                required
+              />
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Your Email</span>
               </label>
-              <input name="email" type="email" placeholder="Email" className="input input-bordered" required />
+              <input
+                name="email"
+                type="email"
+                placeholder="Email"
+                className="input input-bordered"
+                required
+              />
             </div>
             <div className="form-control">
               <label className="label">
@@ -89,19 +135,48 @@ const Register = () => {
               <label className="label">
                 <span className="label-text">Your Photo URL</span>
               </label>
-              <input name="photo" type="text" placeholder="Photo URL" className="input input-bordered" />
+              <input
+                name="photo"
+                type="text"
+                placeholder="Photo URL"
+                className="input input-bordered"
+              />
             </div>
-            <div className="form-control">
-              <label className="label">
-                <input name="terms" type="checkbox" /> I agree to the{" "}
-                <Link to="/terms-and-conditions" className="text-blue-600">terms & conditions</Link>
+
+            <div className="form-control flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+              <label className="label flex items-center">
+                <input name="terms" type="checkbox" className="mr-2" />
+                <span className="text-sm">
+                  I agree to the{" "}
+                  <Link
+                    to="/terms"
+                    className="font-bold text-blue-600 hover:underline"
+                  >
+                    terms & conditions
+                  </Link>
+                </span>
               </label>
+              <div className="mt-2 md:mt-0">
+                <Link
+                  className="font-bold text-red-600 hover:underline"
+                  to="/login"
+                >
+                  Already have an account ? Login
+                </Link>
+              </div>
             </div>
+
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">Sign Up</button>
+              <button type="submit" className="btn btn-primary">
+                Sign Up
+              </button>
             </div>
             {error && <p className="text-red-600 text-center">{error}</p>}
-            {success && <p className="text-green-600 text-center">Registration successful!</p>}
+            {success && (
+              <p className="text-green-600 text-center">
+                Registration successful!
+              </p>
+            )}
           </form>
         </div>
       </div>

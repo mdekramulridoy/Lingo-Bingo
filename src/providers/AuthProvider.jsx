@@ -52,18 +52,17 @@ const AuthProvider = ({ children }) => {
     const signInWithGoogle = async () => {
         setLoading(true);
         try {
-          const result = await signInWithPopup(auth, googleProvider);
-          const user = result.user;
-          setUser(user);
-          return result;
+            const result = await signInWithPopup(auth, googleProvider);
+            const user = result.user;
+            setUser(user);
+            return result;
         } catch (error) {
-          console.error("Error signing in with Google:", error.message);
-          throw error;
+            console.error("Error signing in with Google:", error.message);
+            throw error;
         } finally {
-          setLoading(false);
+            setLoading(false);
         }
-      };
-      
+    };
 
     const signOutUser = async () => {
         setLoading(true);
@@ -78,6 +77,22 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    const updateUserProfile = async (displayName, photoURL) => {
+        setLoading(true);
+        try {
+            await updateProfile(auth.currentUser, {
+                displayName,
+                photoURL,
+            });
+            setUser({ ...auth.currentUser, displayName, photoURL });
+        } catch (error) {
+            console.error("Error updating profile:", error.message);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -86,6 +101,7 @@ const AuthProvider = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
+
     const authInfo = {
         user,
         loading,
@@ -93,6 +109,7 @@ const AuthProvider = ({ children }) => {
         signInUser,
         signInWithGoogle,
         signOutUser,
+        updateUserProfile, 
     };
 
     return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;

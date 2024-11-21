@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-
 const Register = () => {
   useEffect(() => {
     document.title = "Registration";
@@ -21,34 +20,20 @@ const Register = () => {
     const password = e.target.password.value;
     const terms = e.target.terms.checked;
     const photo = e.target.photo.value;
-  
+
     setError("");
     setSuccess(false);
-  
+
     if (!terms) {
       setError("Please accept our terms & conditions.");
       return;
     }
-  
+
     if (password.length < 6) {
       setError("Password should be 6 characters or longer.");
       return;
     }
-  
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-    if (!passwordRegex.test(password)) {
-      setError(
-        "Password must include at least one uppercase, one lowercase, one number & one special character."
-      );
-      return;
-    }
-  
-    if (name.length < 5) {
-      setError("Name must be at least 5 characters long.");
-      return;
-    }
-  
+
     createUser(email, password, name, photo)
       .then(() => {
         e.target.reset();
@@ -59,7 +44,6 @@ const Register = () => {
         setError(err.message);
       });
   };
-  
 
   return (
     <div className="hero bg-base-200 min-h-screen">
@@ -71,76 +55,54 @@ const Register = () => {
           <form onSubmit={handleRegister} className="card-body">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Name</span>
+                <span className="label-text">Your Name</span>
               </label>
-              <input
-                name="name"
-                type="text"
-                placeholder="Name"
-                className="input input-bordered"
-                required
-              />
+              <input name="name" type="text" placeholder="Your Name" className="input input-bordered" required />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Photo URL</span>
+                <span className="label-text">Your Email</span>
               </label>
-              <input
-                name="photo"
-                type="text"
-                placeholder="Photo URL"
-                className="input input-bordered"
-                required
-              />
+              <input name="email" type="email" placeholder="Email" className="input input-bordered" required />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text">Your Password</span>
               </label>
-              <input
-                name="email"
-                type="email"
-                placeholder="Email"
-                className="input input-bordered"
-                required
-              />
-            </div>
-            <div className="form-control relative">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                name="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                className="input input-bordered"
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="btn btn-xs absolute right-3 top-12"
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
-            <div className="form-control">
-              <label className="label justify-start cursor-pointer">
-                <input name="terms" type="checkbox" className="checkbox" />
-                <span className="label-text ml-2">
-                  Accept Our Terms & Conditions.
+              <div className="relative">
+                <input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="input input-bordered w-full"
+                  required
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute top-3 right-3 cursor-pointer"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>
+              </div>
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Your Photo URL</span>
+              </label>
+              <input name="photo" type="text" placeholder="Photo URL" className="input input-bordered" />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <input name="terms" type="checkbox" /> I agree to the{" "}
+                <Link to="/terms-and-conditions" className="text-blue-600">terms & conditions</Link>
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Sign Up</button>
+              <button type="submit" className="btn btn-primary">Sign Up</button>
             </div>
+            {error && <p className="text-red-600 text-center">{error}</p>}
+            {success && <p className="text-green-600 text-center">Registration successful!</p>}
           </form>
-          {error && <p className="text-red-600 text-center">{error}</p>}
-          {success && <p className="text-green-600">Sign-up Successful.</p>}
-          <p className="text-center text-lg mb-4 my-1">
-            Already signed up? Please <Link className="font-bold text-red-500" to="/login">Login</Link>
-          </p>
         </div>
       </div>
     </div>

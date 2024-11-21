@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
-import { updateProfile } from "firebase/auth";
 
 const UpdateProfile = () => {
-  const { user } = useContext(AuthContext); 
+  const { user, updateUserProfile } = useContext(AuthContext); 
   const navigate = useNavigate();
   const [name, setName] = useState(user?.displayName || "");
   const [photoURL, setPhotoURL] = useState(user?.photoURL || "");
@@ -26,11 +25,7 @@ const UpdateProfile = () => {
     }
 
     try {
-      await updateProfile(user, {
-        displayName: name,
-        photoURL: photoURL,
-      });
-
+      await updateUserProfile(name, photoURL);
       setSuccess(true);
       navigate("/profile");
     } catch (error) {

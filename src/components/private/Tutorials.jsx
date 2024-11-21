@@ -40,7 +40,7 @@ const Tutorials = () => {
       <div className="text-center">
         <Link
           to="/start-learning"
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition"
+          className="bg-[#08ABE9] font-bold hover:bg-green-500 text-white px-6 py-3 rounded-lg shadow transition"
         >
           Learn Vocabularies
         </Link>

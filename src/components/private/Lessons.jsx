@@ -7,7 +7,10 @@ const Lessons = () => {
   const [loading, setLoading] = useState(true);
   const [voices, setVoices] = useState([]); 
   useEffect(() => {
+
+    document.title = `Lesson ${lesson_no}`;
     const fetchLessonData = async () => {
+
       try {
         const response = await fetch("/vocabulary.json");
         if (!response.ok) {
@@ -99,7 +102,7 @@ const Lessons = () => {
       <div className="text-center mt-6">
         <Link
           to="/start-learning"
-          className="px-4 py-2 bg-blue-500 text-white font-bold rounded-lg shadow hover:bg-blue-600 transition"
+          className="px-4 py-2 bg-[#08ABE9] text-white font-bold rounded-lg shadow hover:bg-green-500 transition"
         >
           Back to Lessons
         </Link>

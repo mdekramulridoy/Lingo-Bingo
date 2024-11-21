@@ -143,7 +143,7 @@ const Register = () => {
               />
             </div>
 
-            <div className="form-control flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+            <div className="form-control flex flex-col  items-center space-y-2 md:space-y-0 md:space-x-4">
               <label className="label flex items-center">
                 <input name="terms" type="checkbox" className="mr-2" />
                 <span className="text-sm">

@@ -7,9 +7,14 @@ const LessonsPage = () => {
   const [lessonWords, setLessonWords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [voices, setVoices] = useState([]);
-  
-  useEffect(() => {
 
+  const difficultyColors = {
+    easy: "bg-green-100 border-green-500",
+    medium: "bg-yellow-100 border-yellow-500",
+    hard: "bg-red-100 border-red-500",
+  };
+
+  useEffect(() => {
     const fetchVocabulary = async () => {
       try {
         const response = await fetch("/vocabulary.json");
@@ -26,22 +31,18 @@ const LessonsPage = () => {
       }
     };
 
-  
     const loadVoices = () => {
       const allVoices = window.speechSynthesis.getVoices();
-      setVoices(allVoices); 
+      setVoices(allVoices);
     };
 
- 
     loadVoices();
-   
-    window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
 
+    window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
 
     fetchVocabulary();
 
     return () => {
- 
       window.speechSynthesis.removeEventListener("voiceschanged", loadVoices);
     };
   }, [lessonId]);
@@ -53,7 +54,7 @@ const LessonsPage = () => {
     }
 
     const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "ja-JP"; 
+    utterance.lang = "ja-JP";
 
     const japaneseVoice = voices.find((voice) => voice.lang.startsWith("ja"));
     if (japaneseVoice) {
@@ -75,8 +76,10 @@ const LessonsPage = () => {
           {lessonWords.map((word) => (
             <div
               key={word.id}
-              className="card p-6 border rounded-lg shadow hover:shadow-lg cursor-pointer transition"
-              onClick={() => pronounceWord(word.word)} 
+              className={`card p-6 border rounded-lg shadow hover:shadow-lg cursor-pointer transition ${
+                difficultyColors[word.difficulty] || ""
+              }`}
+              onClick={() => pronounceWord(word.word)}
             >
               <h2 className="text-xl font-semibold">{word.word}</h2>
               <p>{word.meaning}</p>

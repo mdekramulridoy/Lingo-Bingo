@@ -1,24 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
-// import { toast } from "react-hot-toast";
 import "animate.css";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (user) {
-  //     toast.success(`Welcome, ${user.displayName || "User"}!`, {
-  //       duration: 4000, 
-  //       style: {
-  //         background: "#08ABE9",
-  //         color: "#fff",
-  //       },
-  //     });
-  //   }
-  // }, [user]);
 
   const handleSignOut = () => {
     signOutUser()

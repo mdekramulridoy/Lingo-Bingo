@@ -11,9 +11,9 @@ const Home = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const images = [
-    "https://i.ibb.co.com/dWMY07f/learn-another-language-with-US.jpg",
-    "https://i.ibb.co/hBfG1yG/6ca4d3df-bbc9-4ebc-93db-379c637bc20b.jpg",
-    "https://i.ibb.co.com/GTBvPF5/learn-another-language-with-US-1.jpg",
+    "https://i.ibb.co.com/zZXkWD8/Leonardo-Phoenix-A-cinematic-photograph-of-a-serene-girl-with-3.jpg",
+    "https://i.ibb.co.com/df8Kw6v/Leonardo-Phoenix-A-cinematic-photograph-of-a-young-Japanese-gi-1.jpg",
+    "https://i.ibb.co.com/m6kZn5g/Leonardo-Phoenix-A-cinematic-photograph-of-a-serene-girl-with-1.jpg",
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

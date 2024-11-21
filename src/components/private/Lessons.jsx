@@ -5,12 +5,18 @@ const Lessons = () => {
   const { lesson_no } = useParams();
   const [lessonDetails, setLessonDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [voices, setVoices] = useState([]); 
-  useEffect(() => {
+  const [voices, setVoices] = useState([]);
+  const [selectedWord, setSelectedWord] = useState(null); // State for modal
 
+  const difficultyColors = {
+    easy: "bg-green-100 border-green-500",
+    medium: "bg-yellow-100 border-yellow-500",
+    hard: "bg-red-100 border-red-500",
+  };
+
+  useEffect(() => {
     document.title = `Lesson ${lesson_no}`;
     const fetchLessonData = async () => {
-
       try {
         const response = await fetch("/vocabulary.json");
         if (!response.ok) {
@@ -43,7 +49,6 @@ const Lessons = () => {
     };
   }, [lesson_no]);
 
-
   const pronounceWord = (word) => {
     if (voices.length === 0) {
       alert("Voices are still loading, please try again in a moment.");
@@ -51,7 +56,7 @@ const Lessons = () => {
     }
 
     const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "ja-JP"; 
+    utterance.lang = "ja-JP";
     const japaneseVoice = voices.find((voice) => voice.lang.startsWith("ja"));
     if (japaneseVoice) {
       utterance.voice = japaneseVoice;
@@ -62,6 +67,15 @@ const Lessons = () => {
     window.speechSynthesis.speak(utterance);
   };
 
+  const openModal = (word) => {
+    pronounceWord(word.word); // Pronounce the word when modal opens
+    setSelectedWord(word);
+  };
+
+  const closeModal = () => {
+    setSelectedWord(null);
+  };
+
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold text-center">Lesson {lesson_no}</h1>
@@ -70,7 +84,9 @@ const Lessons = () => {
       </p>
 
       {loading ? (
-        <p className="text-center mt-6 text-gray-600">Loading lesson details...</p>
+        <p className="text-center mt-6 text-gray-600">
+          Loading lesson details...
+        </p>
       ) : (
         <div className="mt-6">
           {lessonDetails && lessonDetails.length > 0 ? (
@@ -78,15 +94,16 @@ const Lessons = () => {
               {lessonDetails.map((word) => (
                 <li
                   key={word.id}
-                  className="border p-4 rounded-lg shadow hover:shadow-lg transition"
-                  onClick={() => pronounceWord(word.word)} 
+                  className={`border p-4 rounded-lg shadow hover:shadow-lg transition cursor-pointer ${
+                    difficultyColors[word.difficulty] || ""
+                  }`}
+                  onClick={() => openModal(word)}
                 >
                   <h3 className="text-lg font-bold">{word.word}</h3>
                   <p className="text-gray-500 italic">{word.pronunciation}</p>
                   <p className="text-gray-800">Meaning: {word.meaning}</p>
-                  <p className="text-gray-600">Part of Speech: {word.part_of_speech}</p>
-                  <p className="text-gray-600 mt-2">
-                    <strong>Example:</strong> {word.example}
+                  <p className="text-gray-600">
+                    Part of Speech: {word.part_of_speech}
                   </p>
                 </li>
               ))}
@@ -96,6 +113,23 @@ const Lessons = () => {
               No details available for this lesson.
             </p>
           )}
+        </div>
+      )}
+
+      {selectedWord && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md">
+            <h2 className="text-xl font-bold">{selectedWord.word}</h2>
+            <p className="mt-2"><strong>Meaning:</strong> {selectedWord.meaning}</p>
+            <p className="mt-2"><strong>When to Say:</strong> {selectedWord.when_to_say}</p>
+            <p className="mt-2"><strong>Example:</strong> {selectedWord.example}</p>
+            <button
+              className="mt-4 px-4 py-2 hover:bg-green-500 text-white rounded bg-[#08ABE9]"
+              onClick={closeModal}
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
 

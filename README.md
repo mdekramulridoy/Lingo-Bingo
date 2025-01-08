@@ -15,7 +15,7 @@ You can try out the live version of **Lingo Bingo** here:
 - **Surge:** [typical-hook.surge.sh](http://typical-hook.surge.sh)  
 - **Firebase:** [https://learning-different-language.web.app/](https://learning-different-language.web.app/)
 
-## Live URL
+## Repository
 - **Repository:** [https://github.com/mdekramulridoy/Lingo-Bingo](https://github.com/mdekramulridoy/Lingo-Bingo)
 
 ## Key Features

@@ -28,24 +28,102 @@ You can try out the live version of **Lingo Bingo** here:
 - **Google Sign-In:** Enables users to sign in quickly and securely using their Google account.
 - **Password Reset:** Users can easily reset their passwords if they forget them, through Firebase’s email reset functionality.
 
-## Technologies Used
+## Main Technologies
+This project utilizes the following main technologies:
+- **React**: For building the user interface.
+- **React Router DOM**: For managing client-side routing.
+- **Firebase**: For backend services and authentication.
+- **TailwindCSS**: For styling the application.
+- **DaisyUI**: For prebuilt UI components with TailwindCSS.
+- **Animate.css**: For animations.
+- **LocalForage**: For offline storage and data caching.
+- **Match Sorter**: For easy data sorting.
+- **React Icons**: For adding scalable vector icons.
 
-- **React.js:** Frontend library for building the user interface.
-- **Firebase:** Used for authentication, real-time database, and storing user data.
-- **React Router:** To handle navigation between pages such as login, register, and learning modules.
-- **React Hot Toast:** For displaying toast notifications, including success and error messages.
-- **Tailwind CSS:** A utility-first CSS framework used for styling the app, making the development process faster and more flexible.
+## Main Features
+This project includes the following key features:
+1. **Responsive Design**: Works seamlessly across devices like mobile, tablet, and desktop.
+2. **Firebase Integration**: Provides authentication and real-time database services.
+3. **Client-Side Routing**: Uses React Router for dynamic navigation without page reloads.
+4. **Offline Data Storage**: Utilizes LocalForage for storing and caching data locally.
+5. **Custom Animations**: Adds visual effects using Animate.css.
+6. **Prebuilt UI Components**: DaisyUI enhances styling and speeds up development.
+7. **Interactive Icons**: Implements vector icons using React Icons.
 
-## NPM Packages Used
+## Dependencies
+Here are the primary dependencies used in this project:
+- **animate.css**: ^4.1.1
+- **firebase**: ^11.0.2
+- **localforage**: ^1.10.0
+- **match-sorter**: ^8.0.0
+- **react**: ^18.3.1
+- **react-countup**: ^6.5.3
+- **react-dom**: ^18.3.1
+- **react-hot-toast**: ^2.4.1
+- **react-icons**: ^5.3.0
+- **react-router-dom**: ^6.28.0
+- **sort-by**: ^1.2.0
 
-Here is a list of the npm packages that are used in the project:
+### Development Dependencies
+- **@eslint/js**: ^9.13.0
+- **@types/react**: ^18.3.12
+- **@types/react-dom**: ^18.3.1
+- **@vitejs/plugin-react**: ^4.3.3
+- **autoprefixer**: ^10.4.20
+- **daisyui**: ^4.12.14
+- **eslint**: ^9.13.0
+- **eslint-plugin-react**: ^7.37.2
+- **eslint-plugin-react-hooks**: ^5.0.0
+- **eslint-plugin-react-refresh**: ^0.4.14
+- **globals**: ^15.11.0
+- **postcss**: ^8.4.49
+- **tailwindcss**: ^3.4.15
+- **vite**: ^5.4.10
 
-- `react`: Frontend JavaScript library for building user interfaces.
-- `react-dom`: Package for DOM rendering in React.
-- `react-router-dom`: Enables dynamic routing in React applications.
-- `firebase`: For authentication, database handling, and storage.
-- `react-hot-toast`: Provides toast notifications for success, error, and general alerts.
-- `react-icons`: Provides various icons to enhance the UI (e.g., for the Google Sign-In button).
-- `react-hook-form`: For managing form data and validation.
-- `react-firebase-hooks`: To simplify Firebase integration in React apps.
-- `tailwindcss`: A CSS framework for designing responsive and clean user interfaces.
+## Running the Project Locally
+
+To run this project on your local machine, follow these steps:
+
+### 1. Prerequisites
+- Install [Node.js](https://nodejs.org/) on your system.
+- Ensure you have a Firebase project set up (if required).
+
+### 2. Clone the Project
+```bash
+git clone [Your Project Repository URL]
+cd [Project Folder Name]
+```
+
+### 3. Install Dependencies
+```bash
+npm install
+```
+
+### 4. Set Environment Variables
+Create a `.env` file in the root directory and add the following configuration:
+```
+REACT_APP_FIREBASE_API_KEY=[Your Firebase API Key]
+REACT_APP_FIREBASE_AUTH_DOMAIN=[Your Firebase Auth Domain]
+REACT_APP_FIREBASE_PROJECT_ID=[Your Firebase Project ID]
+REACT_APP_FIREBASE_STORAGE_BUCKET=[Your Firebase Storage Bucket]
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=[Your Firebase Messaging Sender ID]
+REACT_APP_FIREBASE_APP_ID=[Your Firebase App ID]
+```
+
+### 5. Run the Project
+```bash
+npm run dev
+```
+
+### 6. Open in Browser
+Once the development server is running, open your browser and go to:
+```
+http://localhost:3000
+```
+
+## Contribution
+To contribute to this project:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them with a meaningful message.
+4. Push your branch and submit a Pull Request.

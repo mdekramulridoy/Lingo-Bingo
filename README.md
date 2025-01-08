@@ -16,7 +16,7 @@ You can try out the live version of **Lingo Bingo** here:
 - **Firebase:** [https://learning-different-language.web.app/](https://learning-different-language.web.app/)
 
 ## Repository
-- **Repository:** [https://github.com/mdekramulridoy/Lingo-Bingo](https://github.com/mdekramulridoy/Lingo-Bingo)
+[Lingo-Bingo-Repository](https://github.com/mdekramulridoy/Lingo-Bingo)
 
 ## Key Features
 
